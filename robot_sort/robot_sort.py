@@ -96,8 +96,37 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # check if robot is holding nothing in the bigging
+        if self.compare_item() == None:
+            # need to go right
+            self.move_right()
+            # currently there is nothing in robot's hand now let robot hold the next item
+            self.swap_item()
+            # also if need to go left
+            self.move_left()
+        #if we want to go right
+        while self.can_move_right():
+            # checking if the current item is less than held item than swap it
+            if self.compare_item() == -1:
+                self.swap_item()
+            # if robot have moved all the way to right and there is none
+            elif self.compare_item() == None:
+                # swap the held item  with none in the list
+                self.swap_item()
+                # then again move right and put the None in the next index and grab an unsorted value
+                self.move_right()
+                self.swap_item()
+                # going back to the beginning of the sorted list and check what we have and resort
+                while self.can_move_left():
+                    self.move_left()
+            # otherwise keep moving right
+            else:
+                self.move_right()
+        # when we get to the end of the list make sure that the robot has none and the list is completely sorted
+        self.swap_item()
+        
+        return              
+        
 
 
 if __name__ == "__main__":
